@@ -74,33 +74,4 @@ const wait = setInterval(() => {
         patchMultiplayer();
         console.log("[AutoLivery] Multiplayer patch active");
     }
-}, 1000);    if (!currentId || currentId === lastAircraft) return;
-    lastAircraft = currentId;
-    if (autoLiveries[currentId]) {
-        const entry = autoLiveries[currentId];
-        loadLivery(entry.texture, entry.parts, entry.index);
-    }
-}
-
-function patchMultiplayer() {
-    const origAddAircraft = geofs.multiplayer.addAircraft;
-    geofs.multiplayer.addAircraft = function(data) {
-        const plane = origAddAircraft.apply(this, arguments);
-        try {
-            if (autoLiveries[data.aircraft]) {
-                const entry = autoLiveries[data.aircraft];
-                loadLivery(entry.texture, entry.parts, entry.index, plane);
-            }
-        } catch(e){}
-        return plane;
-    };
-}
-
-setInterval(checkAircraft, 1000);
-
-const wait = setInterval(() => {
-    if (geofs?.multiplayer?.addAircraft) {
-        clearInterval(wait);
-        patchMultiplayer();
-    }
 }, 1000);
