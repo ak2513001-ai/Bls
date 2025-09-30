@@ -1,18 +1,24 @@
 const autoLiveries = {
     "1": {
-        texture: "https://raw.githubusercontent.com/kolos26/GEOFS-LiverySelector/main/liveries/piper_cub/US-Army-Air-Corps.jpg",
+        texture: [
+            { url: "https://raw.githubusercontent.com/kolos26/GEOFS-LiverySelector/main/liveries/piper_cub/US-Army-Air-Corps.jpg" }
+        ],
         parts: [0,0,0,0],
         index: [0,1,2,3],
         mp: [{ modelIndex: 0, textureIndex: 0 }]
     },
     "320": {
-        texture: "https://raw.githubusercontent.com/yourRepo/yourPath/a320-livery.png",
+        texture: [
+            { url: "https://raw.githubusercontent.com/yourRepo/yourPath/a320-livery.png" }
+        ],
         parts: [0,0,0],
         index: [0,1,2],
         mp: [{ modelIndex: 0, textureIndex: 0 }]
     },
     "737": {
-        texture: "https://raw.githubusercontent.com/yourRepo/yourPath/b737-livery.png",
+        texture: [
+            { url: "https://raw.githubusercontent.com/yourRepo/yourPath/b737-livery.png" }
+        ],
         parts: [0,0,0,0],
         index: [0,1,2,3],
         mp: [{ modelIndex: 0, textureIndex: 0 }]
@@ -22,16 +28,20 @@ const autoLiveries = {
 let lastAircraft = null;
 let multiplayertexture = null;
 
-function loadLivery(textureURLs, parts, index, targetAircraft = geofs.aircraft.instance) {
+function loadLivery(textures, parts, index, targetAircraft = geofs.aircraft.instance) {
     for (let i = 0; i < parts.length; i++) {
         try {
-            if (geofs.version == 2.9)
-                geofs.api.Model.prototype.changeTexture(textureURLs[i], index[i], targetAircraft.definition.parts[parts[i]]['3dmodel']);
-            else
-                geofs.api.changeModelTexture(targetAircraft.definition.parts[parts[i]]['3dmodel']._model, textureURLs[i], index[i]);
-        } catch(e){}
+            const model3d = targetAircraft.definition.parts[parts[i]]['3dmodel'];
+            const textureObj = textures[i];
+            if (geofs.version == 2.9) 
+                geofs.api.Model.prototype.changeTexture(textureObj.url, index[i], model3d);
+            else 
+                geofs.api.changeModelTexture(model3d._model, textureObj.url, index[i]);
+        } catch (e) {
+            alert("Error applying texture: " + e);
+        }
     }
-    if (targetAircraft === geofs.aircraft.instance) multiplayertexture = textureURLs;
+    if (targetAircraft === geofs.aircraft.instance) multiplayertexture = textures.map(t => t.url);
 }
 
 function checkAircraft() {
@@ -40,7 +50,7 @@ function checkAircraft() {
     lastAircraft = currentId;
     if (autoLiveries[currentId]) {
         const entry = autoLiveries[currentId];
-        const textures = Array(entry.index.length).fill(entry.texture);
+        const textures = Array(entry.index.length).fill(entry.texture[0]);
         loadLivery(textures, entry.parts, entry.index);
     }
 }
@@ -52,10 +62,12 @@ function patchMultiplayer() {
         try {
             if (autoLiveries[data.aircraft]) {
                 const entry = autoLiveries[data.aircraft];
-                const textures = Array(entry.index.length).fill(entry.texture);
+                const textures = Array(entry.index.length).fill(entry.texture[0]);
                 loadLivery(textures, entry.parts, entry.index, plane);
             }
-        } catch(e){}
+        } catch (e) {
+            alert("Error applying multiplayer livery: " + e);
+        }
         return plane;
     };
 }
@@ -66,5 +78,6 @@ const wait = setInterval(() => {
     if (geofs?.multiplayer?.addAircraft) {
         clearInterval(wait);
         patchMultiplayer();
+        alert("Auto-livery multiplayer patch active");
     }
 }, 1000);
