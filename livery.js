@@ -1,6 +1,6 @@
 const autoLiveries = {
     "1": {
-        texture: "https://raw.githubusercontent.com/kolos26/GEOFS-LiverySelector/main/liveries/piper_cub/US-Army-Air-Corps.jpg",
+        texture: "https://raw.githubusercontent.com/kolos26/GEOFS-LiverySelector/main/liveries/piper_cub/44.jpg",
         parts: [0],
         index: [3],
         mp: [{ modelIndex: 0, textureIndex: 0 }]
