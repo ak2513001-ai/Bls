@@ -11,6 +11,8 @@
     logPanel.style.overflow = "auto";
     logPanel.style.zIndex = "999999";
     logPanel.style.padding = "6px";
+    logPanel.style.border = "1px solid lime";
+    logPanel.style.cursor = "move"; // indicates draggable
     logPanel.innerHTML = "<b>Recording GeoFS Flight Plan activity...</b><br><button id='fpCopyBtn'>Copy Log</button><pre id='fpLog' style='white-space: pre-wrap;'></pre>";
     document.body.appendChild(logPanel);
 
@@ -31,7 +33,32 @@
         });
     };
 
-    // Try to hook geofs.flightPlan functions if present
+    // Drag functionality
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    logPanel.addEventListener("mousedown", function(e){
+        isDragging = true;
+        offsetX = e.clientX - logPanel.getBoundingClientRect().left;
+        offsetY = e.clientY - logPanel.getBoundingClientRect().top;
+        logPanel.style.transition = "none"; // remove transition during drag
+    });
+
+    document.addEventListener("mousemove", function(e){
+        if(isDragging){
+            logPanel.style.left = (e.clientX - offsetX) + "px";
+            logPanel.style.top = (e.clientY - offsetY) + "px";
+        }
+    });
+
+    document.addEventListener("mouseup", function(){
+        if(isDragging){
+            isDragging = false;
+            logPanel.style.transition = ""; // restore any transition
+        }
+    });
+
+    // Hook geofs.flightPlan functions
     if (window.geofs && geofs.flightPlan) {
         for (let k in geofs.flightPlan) {
             if (typeof geofs.flightPlan[k] === "function") {
@@ -47,7 +74,7 @@
         log("geofs.flightPlan not ready. Try opening the Flight Plan panel.");
     }
 
-    // Try to monitor iframe with flight plan UI
+    // Monitor iframe with flight plan UI
     let framesChecked = false;
     function checkFrames(){
         if (framesChecked) return;
