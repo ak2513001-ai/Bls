@@ -1,8 +1,8 @@
 const autoLiveries = {
     "1": {
-        texture: "https://raw.githubusercontent.com/kolos26/GEOFS-LiverySelector/main/liveries/piper_cub/44.jpg",
-        parts: [0, 0, 0, 0],
-        index: [0, 1, 2, 3],
+        texture: "https://raw.githubusercontent.com/kolos26/GEOFS-LiverySelector/main/liveries/piper_cub/US-Army-Air-Corps.jpg",
+        parts: [0,0,0,0],
+        index: [0,1,2,3],
         mp: [{ modelIndex: 0, textureIndex: 0 }]
     },
     "320": {
@@ -22,14 +22,16 @@ const autoLiveries = {
 let lastAircraft = null;
 let multiplayertexture = null;
 
-function loadLivery(textureURL, parts, index, targetAircraft = geofs.aircraft.instance) {
+function loadLivery(textureURLs, parts, index, targetAircraft = geofs.aircraft.instance) {
     for (let i = 0; i < parts.length; i++) {
         try {
-            if (geofs.version == 2.9) geofs.api.Model.prototype.changeTexture(textureURL, index[i], targetAircraft.definition.parts[parts[i]]['3dmodel']);
-            else geofs.api.changeModelTexture(targetAircraft.definition.parts[parts[i]]['3dmodel']._model, textureURL, index[i]);
+            if (geofs.version == 2.9)
+                geofs.api.Model.prototype.changeTexture(textureURLs[i], index[i], targetAircraft.definition.parts[parts[i]]['3dmodel']);
+            else
+                geofs.api.changeModelTexture(targetAircraft.definition.parts[parts[i]]['3dmodel']._model, textureURLs[i], index[i]);
         } catch(e){}
     }
-    if (targetAircraft === geofs.aircraft.instance) multiplayertexture = textureURL;
+    if (targetAircraft === geofs.aircraft.instance) multiplayertexture = textureURLs;
 }
 
 function checkAircraft() {
@@ -38,7 +40,8 @@ function checkAircraft() {
     lastAircraft = currentId;
     if (autoLiveries[currentId]) {
         const entry = autoLiveries[currentId];
-        loadLivery(entry.texture, entry.parts, entry.index);
+        const textures = Array(entry.index.length).fill(entry.texture);
+        loadLivery(textures, entry.parts, entry.index);
     }
 }
 
@@ -49,7 +52,8 @@ function patchMultiplayer() {
         try {
             if (autoLiveries[data.aircraft]) {
                 const entry = autoLiveries[data.aircraft];
-                loadLivery(entry.texture, entry.parts, entry.index, plane);
+                const textures = Array(entry.index.length).fill(entry.texture);
+                loadLivery(textures, entry.parts, entry.index, plane);
             }
         } catch(e){}
         return plane;
