@@ -6,13 +6,12 @@
 
     const plane = geofs.aircraft.instance;
 
-    // Create floating frame
     const frame = document.createElement("div");
     frame.style.position = "fixed";
     frame.style.bottom = "10px";
     frame.style.right = "10px";
-    frame.style.width = "350px";
-    frame.style.maxHeight = "250px";
+    frame.style.width = "400px";
+    frame.style.maxHeight = "300px";
     frame.style.overflowY = "auto";
     frame.style.background = "rgba(0,0,0,0.85)";
     frame.style.color = "white";
@@ -58,8 +57,8 @@
             logMsg(`Part ${i}: ${part.name || "Unnamed"} - 3D model not loaded yet`);
             return;
         }
-        const texCount = part['3dmodel']._model.textures ? part['3dmodel']._model.textures.length : "Unknown";
-        logMsg(`Part ${i}: ${part.name || "Unnamed"} - Texture slots: ${texCount}`);
+        const textures = part['3dmodel']._model.textures || [];
+        const indices = textures.map((_, idx) => idx); // list of available texture indexes
+        logMsg(`Part ${i}: ${part.name || "Unnamed"} - Texture slots: ${textures.length} - Indexes: [${indices.join(", ")}]`);
     });
-
 })();
