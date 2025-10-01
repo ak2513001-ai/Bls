@@ -1,13 +1,9 @@
-// === Custom Piper Cub livery tester with UI Frame ===
 (function () {
-  const aircraftID = 1; // Piper Cub
+  const aircraftID = 1;
   const parts = [0];
   const indices = [3];
-
-  // Default test livery
   const testLivery = "https://raw.githubusercontent.com/kolos26/GEOFS-LiverySelector/main/liveries/piper_cub/NC29508_1.png";
 
-  // --- UI Frame Setup ---
   const frame = document.createElement("div");
   frame.style.position = "fixed";
   frame.style.top = "20px";
@@ -44,34 +40,27 @@
       .then(() => alert("Logs copied to clipboard!"));
   };
 
-  // --- Apply Livery Function ---
   function applyCubLivery(textureUrl) {
     const inst = geofs.aircraft.instance;
-
-    if (inst.id !== aircraftID) {
+    if (inst.id === aircraftID) {
+      for (let i = 0; i < parts.length; i++) {
+        const model3d = inst.definition.parts[parts[i]]["3dmodel"];
+        if (!model3d) {
+          addLog("Could not find model for part " + parts[i], true);
+          continue;
+        }
+        try {
+          geofs.api.changeModelTexture(model3d._model, textureUrl, { index: indices[i] });
+          addLog("Applied livery: " + textureUrl);
+        } catch (err) {
+          addLog("Failed to apply livery: " + err.message, true);
+        }
+      }
+    } else {
       addLog("Not flying the Piper Cub! Current ID: " + inst.id, true);
-      return;
-    }
-
-    for (let i = 0; i < parts.length; i++) {
-      const model3d = inst.definition.parts[parts[i]]["3dmodel"];
-      if (!model3d) {
-        addLog("Could not find model for part " + parts[i], true);
-        continue;
-      }
-
-      try {
-        geofs.api.changeModelTexture(model3d._model, textureUrl, { index: indices[i] });
-        addLog("Applied livery: " + textureUrl);
-      } catch (err) {
-        addLog("Failed to apply livery: " + err.message, true);
-      }
     }
   }
 
-  // Run immediately with default livery
   applyCubLivery(testLivery);
-
-  // Expose for re-use
   window.applyCubLivery = applyCubLivery;
 })();
