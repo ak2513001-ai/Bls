@@ -28,8 +28,14 @@
         window.geofs.api.renderingQuality();
         $("body").trigger("terrainProviderUpdate");
         var removeAds=function(){
-            document.querySelectorAll("iframe[src*='ads'],iframe[src*='doubleclick'],iframe[src*='googlesyndication']").forEach(function(ad){ad.remove()});
-            document.querySelectorAll("div[id^='google_ads'],ins.adsbygoogle,#ads,#adContainer,#ad-banner,.ad-container,.banner-ads%22).forEach(function(ad){ad.style.display='none'});
+            try {
+                document.querySelectorAll("iframe[src*='ads'],iframe[src*='doubleclick'],iframe[src*='googlesyndication']").forEach(function(ad){ad.remove()});
+                document.querySelectorAll("div[id^='google_ads'],ins.adsbygoogle,#ads,#adContainer,#ad-banner,.ad-container,.banner-ads%22").forEach(function(ad){ad.style.display='none'});
+                removeElementsByClass("geofs-adbanner");
+                removeElementsByClass("geofs-adsense-container");
+            } catch(e) {
+                console.warn("Ad removal failed:", e);
+            }
         };
         removeAds();
         setInterval(removeAds,3000)
@@ -38,10 +44,13 @@
         window.geofs.mapXYZ="https://data.geo-fs.com/osm/{z}/{x}/{y}.png"
     });
     function removeElementsByClass(className){
-        const elements=document.getElementsByClassName(className);
-        while(elements.length>0){
-            elements[0].parentNode.removeChild(elements[0]);
+        try {
+            const elements=document.getElementsByClassName(className);
+            while(elements.length>0){
+                elements[0].parentNode.removeChild(elements[0]);
+            }
+        } catch(e) {
+            console.warn("Failed to remove class:", className, e);
         }
     }
-    removeElementsByClass("geofs-adbanner geofs-adsense-container");
 })();
