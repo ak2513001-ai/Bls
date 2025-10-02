@@ -34,7 +34,7 @@ let mpAirlineobjs = {};
     appendNewChild(document.head, 'link', { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' });
 
     //Load liveries (@todo: consider moving to listLiveries)
-    fetch(`${jsDelivr}/livery.json?` + Date.now()).then(handleLiveryJson);
+    fetch(`https://cdn.jsdelivr.net/gh/ak2513001-ai/Bls@main/liveries.json?` + Date.now()).then(handleLiveryJson);
     
     // Panel for list
     const listDiv = appendNewChild(document.querySelector('.geofs-ui-left'), 'div', {
@@ -1118,4 +1118,3 @@ window.LiverySelector = {
     airlineobjs,
     togglePanel
 };
-
