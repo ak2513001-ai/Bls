@@ -1,0 +1,34 @@
+{
+    "version": "3.3.1",
+    "dapi": "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTI2OTkyODcxODMxOTQ4OTA5Ny9sSGQwRUxyWVhBRWNyT2FORXF2RWRhX3hsNjhwUDRGTXNucUJYR25hc0xoVnA4Sk9HSlBzanRBVEh4a0RhRlBkODlVYg==",
+    "mapi": "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1NwaWNlOS9HZW9mcy1NdWx0aWxpdmVyaWVzL21haW4vZGVwZW5kZW5jaWVzL2xpdmVyaWVzLmpzb24",
+    "aircrafts": {
+        "1": {
+            "index": [
+                3
+            ],
+            "parts": [
+                0
+            ],
+            "mp": [
+                {
+                    "modelIndex": 0,
+                    "textureIndex": 0
+                }
+            ],
+            "liveries": [
+                {
+                    "name": "ACME Aero 50",
+                    "texture": [
+                        "https://raw.githubusercontent.com/kolos26/GEOFS-LiverySelector/main/liveries/piper_cub/Geo-FS-Livery-Maker-5.png"
+                    ],
+                    "credits": "ljwalch"
+                }
+            ],
+            "labels": [
+                "Texture"
+            ],
+            "name": "Piper J3 Cub"
+        }
+    }
+}
