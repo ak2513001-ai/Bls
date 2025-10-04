@@ -28,6 +28,7 @@
                 }
             ],
             "labels": [
+                "Specular shader",
                 "Texture"
             ],
             "name": "Airbus a350-900"
