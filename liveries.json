@@ -67,6 +67,60 @@
                 "Texture"
             ],
             "name": "Airbus a330-900neo"
+        },
+        "2418": {
+            "index": [
+                0
+            ],
+            "parts": [
+                0
+            ],
+            "mp": [
+                {
+                    "modelIndex": 0,
+                    "textureIndex": 0
+                }
+            ],
+            "liveries": [
+                {
+                    "name": "ATR 72-600",
+                    "texture": [
+                       "https://raw.githubusercontent.com/ak2513001-ai/Bls/refs/heads/main/BLS_ATR_72.png"
+                    ],
+                    "credits": "By GeoFS Flight Video Group"
+                }
+            ],
+            "labels": [
+                "Texture"
+            ],
+            "name": "ATR 72-600"
+        },
+        "3054": {
+            "index": [
+                0
+            ],
+            "parts": [
+                0
+            ],
+            "mp": [
+                {
+                    "modelIndex": 0,
+                    "textureIndex": 0
+                }
+            ],
+            "liveries": [
+                {
+                    "name": "B737-800NG",
+                    "texture": [
+                       "https://raw.githubusercontent.com/ak2513001-ai/Bls/refs/heads/main/BLS_737-800.png"
+                    ],
+                    "credits": "By Blue"
+                }
+            ],
+            "labels": [
+                "Texture"
+            ],
+            "name": "Boeing B737-800NG"
         }
     }
 }
