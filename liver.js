@@ -113,7 +113,7 @@ async function handleLiveryJson(data) {
         // use orig HTML to concatenate so theres only ever one icon
         element.innerHTML = origHTMLs[aircraftId] +
             createTag('img', {
-                src: `https://raw.githubusercontent.com/OfficialDex/Bluesky-s-website/refs/heads/main/Picsart_25-09-17_06-55-47-095.png`,
+                src: `https://github.com/OfficialDex/Bluesky-s-website/blob/main/Picsart_25-09-28_20-38-29-149.png`,
                 style: 'height:30px;width:auto;margin-left:20px;',
                 title: 'Liveries available'
             }).outerHTML;
@@ -121,7 +121,7 @@ async function handleLiveryJson(data) {
         if (liveryobj.aircrafts[aircraftId].mp != "disabled")
             element.innerHTML += createTag('small', {
                 title: 'Liveries are multiplayer compatible\n(visible to other players)'
-            }, 'ðŸŽ®').outerHTML;
+            }, 'supports').outerHTML;
         }
         });
 
@@ -1064,7 +1064,7 @@ function domById(elementId) {
  */
 function generateListHTML() {
     return `
-        <h3><img src="https://raw.githubusercontent.com/OfficialDex/Bluesky-s-website/refs/heads/main/Picsart_25-09-17_06-55-47-095.png" class="livery-title" title="BLS Livery" /></h3>
+        <h3><img src="https://github.com/OfficialDex/Bluesky-s-website/blob/main/Picsart_25-09-28_20-38-29-149.png" class="livery-title" title="BLS Livery" /></h3>
 
       
         <h6 onclick="LiverySelector.toggleDiv('liverylist')">Available liveries</h6>
@@ -1085,7 +1085,7 @@ function generatePanelButtonHTML() {
         'data-tooltip-classname': 'mdl-tooltip--top',
         'data-upgraded': ',MaterialButton'
     });
-    liveryButton.innerHTML = createTag('img', { src: `https://raw.githubusercontent.com/OfficialDex/Bluesky-s-website/refs/heads/main/Picsart_25-09-17_06-55-47-095.png`, height: '30px' }).outerHTML;
+    liveryButton.innerHTML = createTag('img', { src: `https://github.com/OfficialDex/Bluesky-s-website/blob/main/Picsart_25-09-28_20-38-29-149.png`, height: '30px' }).outerHTML;
 
     return liveryButton;
 }
