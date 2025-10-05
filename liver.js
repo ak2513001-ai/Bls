@@ -34,7 +34,7 @@ let mpAirlineobjs = {};
     appendNewChild(document.head, 'link', { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' });
 
     //Load liveries (@todo: consider moving to listLiveries)
-    fetch(`https://raw.githack.com/ak2513001-ai/Bls/main/liveries.json?` + Date.now()).then(handleLiveryJson);
+    fetch(`https://cdn.jsdelivr.net/gh/ak2513001-ai/Bls@main/liveries.json?` + Date.now()).then(handleLiveryJson);
     
     // Panel for list
     const listDiv = appendNewChild(document.querySelector('.geofs-ui-left'), 'div', {
@@ -100,7 +100,7 @@ async function handleLiveryJson(data) {
     }
     // mark aircraft with livery icons
     Object.keys(liveryobj.aircrafts).forEach(aircraftId => {
-        if (liveryobj.aircrafts[aircraftId].liveries.length < 2) {
+        if (liveryobj.aircrafts[aircraftId].liveries.length < 1) {
             return; // only show icon if there's more than one livery
         }
         const element = document.querySelector(`[data-aircraft='${aircraftId}']`);
@@ -113,7 +113,7 @@ async function handleLiveryJson(data) {
         // use orig HTML to concatenate so theres only ever one icon
         element.innerHTML = origHTMLs[aircraftId] +
             createTag('img', {
-                src: `${noCommit}/liveryselector-logo-small.svg`,
+                src: `https://raw.githubusercontent.com/OfficialDex/Bluesky-s-website/refs/heads/main/Picsart_25-09-17_06-55-47-095.png`,
                 style: 'height:30px;width:auto;margin-left:20px;',
                 title: 'Liveries available'
             }).outerHTML;
@@ -1064,7 +1064,7 @@ function domById(elementId) {
  */
 function generateListHTML() {
     return `
-        <h3><img src="${noCommit}/liveryselector-logo.svg" class="livery-title" title="BLS Livery" /></h3>
+        <h3><img src="https://raw.githubusercontent.com/OfficialDex/Bluesky-s-website/refs/heads/main/Picsart_25-09-17_06-55-47-095.png" class="livery-title" title="BLS Livery" /></h3>
 
       
         <h6 onclick="LiverySelector.toggleDiv('liverylist')">Available liveries</h6>
@@ -1085,7 +1085,7 @@ function generatePanelButtonHTML() {
         'data-tooltip-classname': 'mdl-tooltip--top',
         'data-upgraded': ',MaterialButton'
     });
-    liveryButton.innerHTML = createTag('img', { src: `${noCommit}/liveryselector-logo-small.svg`, height: '30px' }).outerHTML;
+    liveryButton.innerHTML = createTag('img', { src: `https://raw.githubusercontent.com/OfficialDex/Bluesky-s-website/refs/heads/main/Picsart_25-09-17_06-55-47-095.png`, height: '30px' }).outerHTML;
 
     return liveryButton;
 }
